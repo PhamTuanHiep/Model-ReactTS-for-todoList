@@ -51,45 +51,7 @@ const ListUserScreen = () => {
     useEffect(()=>{
         getUsers()
     },[])
-
-    // const instance = axios.create({
-    //     baseURL: 'http://localhost:3001',
-    //     timeout: 8000,
-    //     headers: {
-    //       Accept: 'application/json',
-    //       // 'x-rapidapi-host': 'famous-quotes4.p.rapidapi.com',
-    //       // 'x-rapidapi-key': '<your-key-here>',
-    //     },
-    //   });
     
-    // // Thêm interceptor trước khi gửi yêu cầu
-    // instance.interceptors.request.use(
-    //   (config) => {
-    //     // Kiểm tra xem token đã tồn tại hay không
-    //     const token = localStorage.getItem('token');
-    //     console.log("ckeck token:",token)
-    //     // Nếu token tồn tại, thêm nó vào header của yêu cầu
-    //     if (token) {
-    //       config.headers['Authorization'] = `Bearer ${token}`;
-    //       console.log("add token:",config.headers)
-    //     }
-    //     return config;
-    //   },
-    //   (error) => {
-    //     // Xử lý lỗi request
-    //     return Promise.reject(error);
-    //   }
-    // );
-    
-    // // Sử dụng instance đã được cấu hình để gửi yêu cầu
-    // instance.get('/example-endpoint')
-    //   .then(response => {
-    //     console.log(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
-    // ;
     const getUsers = async () => {
         const response = await instance.get(`${UserApis.USERS}`, {
 
