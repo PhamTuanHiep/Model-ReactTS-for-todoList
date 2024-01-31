@@ -1,0 +1,64 @@
+#val-logup.validation-form {
+  background-color: #af997a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 568px;
+  margin: auto;
+  padding: 15px;
+  height: 100vh;
+  .val {
+    margin: auto;
+    width: 100%;
+  }
+  .val-title {
+    margin: 28px auto 8px;
+    align-items: center;
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    .val-note {
+      margin-top: 8px;
+      font-size: 14px;
+      margin-top: 12px;
+      color: #02010894;
+    }
+  }
+  .val-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    .val-item {
+      margin-left: 90px;
+
+      .val-input {
+        width: 400px;
+      }
+      :where(.css-dev-only-do-not-override-1wazalj).ant-col-16 {
+        display: block;
+        flex: 0 0 66.66666666666666%;
+        max-width: 81.66666666666666%;
+      }
+      #nest-messages_password_help {
+        display: block;
+        height: 42px;
+        .ant-form-item-explain-error {
+          font-size: 13px;
+          line-height: 1.4;
+        }
+      }
+    }
+    .val-submit {
+      width: 200px;
+      line-height: 18px;
+      height: 40px;
+    }
+    .gohome {
+      // margin: auto;
+      font-size: 16px;
+      text-align: center;
+      padding: 0 8px 12px;
+    }
+  }
+}
