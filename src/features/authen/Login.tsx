@@ -1,10 +1,25 @@
 import { Button, Form, Input, InputNumber } from "antd";
 
 import "./Login.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import instance from "../../apis/apis";
+import { UserApis } from "../users/constants/constant.endpoint";
+// import { doLogin } from "./constants/userSlide";
+import { toast } from "react-toastify";
+import { doLogin } from "./constants/accountSlice";
+
+interface User {
+  id: string;
+  username: string;
+  password:string,
+  email: string;
+  phone: string;
+  image:string
+  }
 
 const Login = () => {
   // handle validation
@@ -67,7 +82,55 @@ const Login = () => {
     },
   };
 
-  return (
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const [users,setUsers]=useState<User[]>(
+    [{
+        id: '',
+        username: "",
+        password: "",
+        email: "",
+        phone: "",
+        image:""
+    }]
+  )
+
+  useEffect(()=>{
+      getUsers()
+  },[])
+
+  const getUsers = async () => {
+    const res = await instance.get(`${UserApis.USERS}`, {});
+    const dataUsers=res.data
+    setUsers(dataUsers)
+    // console.log("res:",res);
+    // console.log("dataUsers:",dataUsers)
+  };
+  const onFinish = async (values: any) => {
+    const res = users.find((user) => {
+      return user.email === email && user.password === password;
+      // return user.email === values.user.email && user.password === values.user.password;
+    },);
+
+    if (res == undefined) {
+      toast.error("account login failed")
+    } else {
+      console.log(res)
+      const currentIdUser=res.id
+        localStorage.setItem("currentIdUser", currentIdUser);
+        // localStorage.setItem("currentUser", res);
+
+      // console.log("values:",values)
+      dispatch(doLogin(res))
+      toast.success("successful account login");
+      navigate("/list-tasks");
+    }
+  };
+
+   return (
     <div id="val-login" className="validation-form">
       <div className="val val-title ">
         <span className="val-note">wellcom to My Web</span>
@@ -78,7 +141,7 @@ const Login = () => {
         className="val val-form "
         {...layout}
         name="nest-messages"
-        // onFinish={onFinish}
+        onFinish={onFinish}
         validateMessages={validateMessages}
         layout="vertical"
       >
@@ -97,6 +160,8 @@ const Login = () => {
         >
           <Input
             className="val-input"
+            onChange={(e) => setEmail(e.target.value)}
+            // onKeyDown={(event) => handleKeyDown(event)}
           />
         </Form.Item>
         <Form.Item
@@ -115,6 +180,7 @@ const Login = () => {
         >
           <Input.Password
             className="val-input"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
         <Form.Item
@@ -162,3 +228,4 @@ const Login = () => {
   );
 };
 export default Login;
+
